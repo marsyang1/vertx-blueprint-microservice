@@ -29,15 +29,16 @@ services:
     expose:
       - "6379"
   elasticsearch:
-    image: elasticsearch
+    image: elasticsearch:7.9.3
     ports:
       - "9200:9200"
       - "9300:9300"
     command: elasticsearch
     environment:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      DISCOVERY_TYPE: "single-node"
   logstash:
-    image: logstash
+    image: logstash:7.9.3
     ports:
       - "12201:12201/udp"
     command: -e 'input { gelf { host => "0.0.0.0" port => 12201 } }
@@ -47,7 +48,7 @@ services:
     depends_on:
       - elasticsearch
   kibana:
-    image: kibana
+    image: kibana:7.9.3
     ports:
       - "5601:5601"
     environment:

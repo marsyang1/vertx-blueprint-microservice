@@ -8,10 +8,10 @@ set -e
 # export docker-machine IP
 IP=127.0.0.1
 unamestr=`uname`
-if [[ "$unamestr" != 'Linux' ]]; then
-  # Set docker-machine IP
-  IP="$(docker-machine ip)"
-fi
+# if [[ "$unamestr" != 'Linux' ]]; then
+#   # Set docker-machine IP
+#   IP="$(docker-machine ip)"
+# fi
 export EXTERNAL_IP=$IP
 
 # Get this script directory (to find yml from any directory)
