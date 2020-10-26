@@ -4,6 +4,7 @@ import io.vertx.blueprint.microservice.account.Account;
 import io.vertx.blueprint.microservice.account.AccountService;
 import io.vertx.blueprint.microservice.common.RestAPIVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientRequest;
 import io.vertx.core.http.HttpServerOptions;
@@ -147,12 +148,12 @@ public class APIGatewayVerticle extends RestAPIVerticle {
 
   /**
    * Dispatch the request to the downstream REST layers.
-   *
-   * @param context routing context instance
+   *  @param context routing context instance
    * @param path    relative path
    * @param client  relevant HTTP client
+   * @param cbFuture
    */
-  private void doDispatch(RoutingContext context, String path, HttpClient client, Future<Object> cbFuture) {
+  private void doDispatch(RoutingContext context, String path, HttpClient client, Promise<Object> cbFuture) {
     HttpClientRequest toReq = client
       .request(context.request().method(), path, response -> {
         response.bodyHandler(body -> {
